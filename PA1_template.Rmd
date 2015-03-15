@@ -5,14 +5,39 @@ output:
     keep_md: true
 ---
 
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
+---
 
 ## Loading and preprocessing the data
 
-
+```{r}
+library(dplyr)
+library(ggplot2)
+```
 
 ## What is mean total number of steps taken per day?
 
+```{r}
 
+
+d <- read.csv("C:/Users/emartina/Documents/activity.csv", header = TRUE,                    colClasses = c("numeric", "Date", "numeric"))
+df <- d %>%   group_by(date) %>%  summarise(Steps = sum(steps))
+
+
+
+ggplot(data = df, aes(x = Steps)) + geom_histogram() + scale_x_continuous("Total steps per day") + 
+        scale_y_continuous("Frequency") + 
+        ggtitle("Total steps per day")
+
+mean(df$Steps, na.rm = TRUE)
+
+median(df$Steps, na.rm = TRUE)
+
+```
 
 ## What is the average daily activity pattern?
 
